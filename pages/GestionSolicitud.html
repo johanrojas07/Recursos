@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h2>Comisiones, desplazamientos y tiquetes</h2>
+    <h3>Gestion de Solicitudes</h3>
+    <hr>
+    <div class="container">
+        <div class="form-group">
+            <a href="default.aspx" class="btn btn-warning">
+                <span class="glyphicon glyphicon-home"></span> Menú Principal
+            </a>
+        </div>
+        <div>&nbsp;</div>
+        <div class="row" id="filtroAdministradores">
+            <div class="col-sm-4 form-group">
+                <label>Número de documento</label>
+                <input type="text" class="form-control" id="txtDocumento" />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label>Tipo de vinculación</label>
+                <div>
+                    <label class="radio-inline"><input type="radio" name="tipoVinculacion" value="1">
+                        Funcionario</label>
+                    <label class="radio-inline"><input type="radio" name="tipoVinculacion" value="0">
+                        Contratista</label>
+                </div>
+            </div>
+            <div class="col-sm-4 form-group" id="divDependencia">
+                <label>Dependencia</label>
+                <select class="form-control" id="lstDependencias" name="lstDependencias">
+                    <option value="">--Seleccione--</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" id="divEstado">
+            <div class="col-sm-4 form-group">
+                <label>Estado</label>
+                <select class="form-control" id="selectEstados" name="lstEstados">
+                    <option value="">--Seleccione--</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label>Fecha inicio</label>
+                <div class="input-group">
+                    <input type="text" class="form-control datepicker" id="txtSolicitudFechaInicio"
+                        placeholder="Año-Mes-Día">
+                    <label class="input-group-addon btn" for="txtSolicitudFechaInicio">
+                        <span class="fa fa-calendar"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label>Fecha finalización</label>
+                <div class="input-group">
+                    <input type="text" class="form-control datepicker" id="txtSolicitudFechaFin"
+                        placeholder="Año-Mes-Día">
+                    <label class="input-group-addon btn" for="txtSolicitudFechaFin">
+                        <span class="fa fa-calendar"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="pull-right">
+                    <br>
+                    <button type="button" class="btn btn-default" id="btnBorrarFiltros">Borrar filtros </button>
+                    <button type="button" class="btn btn-primary" id="btnBuscarSolicitudes">Buscar solicitudes <i
+                            class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" id="tblGestionSolicitudes">
+                        <thead>
+                            <tr class="bg-primary">
+                                <th scope="col">CONSECUTIVO</th>
+                                <th scope="col">NOMBRE_COMPLETO</th>
+                                <th scope="col">FECHA_INICIO</th>
+                                <th scope="col">FECHA_FINALIZACIÓN</th>
+                                <th scope="col">ESTADO</th>
+                                <th scope="col">OBJETO DE COMISIÓN O DESPLAZAMIENTO</th>
+                                <th scope="col">VER</th>
+                                <th scope="col">OBSERVACIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Comisiones/Recursos/Components/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/moment.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-dialog.min.js"></script>
+
+    <script src="/Comisiones/Recursos/Components/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/datatables/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/es.js"></script>
+
+    <script src="/Comisiones/Recursos/App/js/ModalMessage.js"></script>
+    <script src="/Comisiones/Recursos/App/js/ServiceBase.js"></script>
+    <script src="/Comisiones/Recursos/App/js/Utils.js"></script>
+    <script src="/Comisiones/Recursos/App/js/Enumeraciones.js"></script>
+    <script src="/Comisiones/Recursos/App/js/GestionSolicitudController.js"></script>
+</body>
+
+</html>

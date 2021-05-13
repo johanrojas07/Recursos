@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Opciones de vuelos</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrapValidator.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/App/css/Comisiones.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h2>Comisiones, desplazamientos y tiquetes</h2>
+    <h3>Opciones de vuelos</h3>
+    <hr>
+    <div class="container">
+        <input type="hidden" id="UsuarioId" value="" />
+        <input type="hidden" id="SolicitudId" value="" />
+        <div class="row">
+            <div class="col-sm-8 form-group">
+                <label class="control-label">Nombre Completo</label>
+                <input type="text" class="form-control" id="txtNombre" name="txtNombre" readonly />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Número de Documento</label>
+                <input type="text" class="form-control" id="txtDocumento" name="txtDocumento" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group ">
+                <label class="control-label">Correo electrónico</label>
+                <input type="text" class="form-control" id="txtCorreo" name="txtCorreo" readonly />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Tipo de Vinculación</label>
+                <input type="text" class="form-control" id="txtTipoVinculacion" name="txtTipoVinculacion" readonly />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Cargo</label>
+                <input type="text" class="form-control" id="txtCargo" name="txtCargo" readonly />
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <table class="table table-bordered table-sm" id="tblRutaAerea">
+            <thead>
+                <tr class="bg-primary">
+                    <th scope="col">ORÍGEN</th>
+                    <th scope="col">DESTINO</th>
+                    <th scope="col">FECHA INICIO</th>
+                    <th scope="col">OPCIONES DE VUELO</th>
+                    <th scope="col">VER OPCIONES DE VUELO</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="ModalVuelos" class="modal fade" role="dialog" style="overflow:visible; z-index:1000;"
+        data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <!---Modal--->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Cargar Opciones de vuelo</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divFuncionario">
+                        <div class="panel-group">
+                            <div class="panel panel-primary">
+                                <div class="panel-collapse collapse in">
+                                    <div class="panel-body" id="frmOpcionesVuelos">
+                                        <div class="col-sm-12">
+                                            <i>Los campos marcados con un asterisco <strong
+                                                    class="text-danger">(*)</strong> son obligatorios.</i>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 form-group">
+                                                <input type="hidden" id="IdDesplazamiento" value="" />
+                                                <label class="control-label">Aerolinea <strong
+                                                        class="text-danger">*</strong></label>
+                                                <select class="form-control" id="lstAerolineas" name="lstAerolineas">
+                                                    <option value="">--Seleccione--</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 form-group">
+                                                <label class="control-label">Orígen <strong
+                                                        class="text-danger">*</strong></label>
+                                                <input type="Text" class="form-control" placeholder="Lugar Orígen"
+                                                    id="txtOrigen" name="txtOrigen" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 form-group">
+                                                <label class="control-label">Destino <strong
+                                                        class="text-danger">*</strong></label>
+                                                <input type="Text" class="form-control" placeholder="Lugar Destino"
+                                                    id="txtDestino" name="txtDestino" readonly>
+                                            </div>
+                                            <div class="col-sm-6 form-group">
+                                                <label class="control-label">Fecha y Hora de Salida <strong
+                                                        class="text-danger">*</strong></label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control datepicker"
+                                                        id="txtFechaInicial" name="txtFechaInicial"
+                                                        placeholder="Año-Mes-Día">
+                                                    <label class="input-group-addon btn" for="txtFechaInicial">
+                                                        <span class="fa fa-calendar"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 form-group">
+                                                <label class="control-label">Valor <strong
+                                                        class="text-danger">*</strong></label>
+                                                <input type="text" class="form-control currency" id="txtValor"
+                                                    name="txtValor">
+                                            </div>
+                                            <div class="col-sm-6 form-group">
+                                                <div class="pull-right">
+                                                    <br>
+                                                    <button type="button" class="btn btn-primary"
+                                                        id="btnAgregar">Agregar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-sm" id="tblVuelos">
+                                            <thead>
+                                                <tr class="bg-primary">
+                                                    <th scope="col">AEROLÍNEA</th>
+                                                    <th scope="col">ORÍGEN</th>
+                                                    <th scope="col">DESTINO</th>
+                                                    <th scope="col">FECHA Y HORA DE SALIDA</th>
+                                                    <th scope="col">VALOR</th>
+                                                    <th scope="col">QUITAR</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <br>
+                                <div class="col-sm-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Comisiones/Recursos/Components/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/moment.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-dialog.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/datatables/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/es.js"></script>
+
+    <script src="/Comisiones/Recursos/Components/currency/jquery.formatCurrency-1.4.0.min.js"></script>
+
+    <script src="/Comisiones/Recursos/App/js/ModalMessage.js"></script>
+    <script src="/Comisiones/Recursos/App/js/ServiceBase.js"></script>
+    <script src="/Comisiones/Recursos/App/js/Utils.js"></script>
+    <script src="/Comisiones/Recursos/App/js/Enumeraciones.js"></script>
+    <script src="/Comisiones/Recursos/App/js/OpcionesVueloController.js"></script>
+</body>
+
+</html>

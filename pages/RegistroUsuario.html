@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Información del usuario</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <!--<link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrapValidator.min.css" rel="stylesheet" />-->
+</head>
+
+<body>
+    <h2>Comisiones, desplazamientos y tiquetes</h2>
+    <h3>Información del usuario</h3>
+    <hr>
+    <div class="admin">
+        <div class="container">
+            <div class="form-group">
+                <a href="default.aspx" class="btn btn-warning">
+                    <span class="glyphicon glyphicon-home"></span> Menú Principal
+                </a>
+            </div>
+            <div>&nbsp;</div>
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">INFORMACIÓN DEL USUARIO</h3>
+                    </div>
+                    <div class="panel-collapse collapse in">
+                        <div class="panel-body" id="frmUsuario">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <i>Los campos marcados con un asterisco <strong class="text-danger">(*)</strong> son
+                                        obligatorios.</i>
+                                    <input type="hidden" id="UsuarioId" value="" />
+                                    <input type="hidden" id="UsuarioSpId" value="" />
+                                    <input type="hidden" id="ContratoId" value="" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">&nbsp;</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Tipo de documento <strong
+                                            class="text-danger">*</strong></label>
+                                    <select class="form-control" id="lstTipoDocumento" name="lstTipoDocumento">
+                                        <option value="">--Seleccione--</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Número de documento <strong
+                                            class="text-danger">*</strong></label>
+                                    <input type="text" class="form-control" id="txtNumeroDocumento"
+                                        name="txtNumeroDocumento" maxlength="20" />
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Pasaporte</label>
+                                    <input type="text" class="form-control" id="txtPasaporte" name="txtPasaporte"
+                                        maxlength="20" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <label class="control-label">Nombre completo <strong
+                                            class="text-danger">*</strong></label>
+                                    <input type="text" class="form-control" id="txtNombreCompleto"
+                                        name="txtNombreCompleto" maxlength="150" />
+
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <label class="control-label">Correo electrónico <strong
+                                            class="text-danger">*</strong></label>
+                                    <input type="text" class="form-control" id="txtCorreo" name="txtCorreo"
+                                        pattern="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i"
+                                        maxlength="200" />
+                                    <small class="text-danger" id="txtCorreo_validation" style="display:none;"></small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Celular <strong class="text-danger">*</strong></label>
+                                    <input type="text" class="form-control" id="txtCelular" name="txtCelular"
+                                        maxlength="20" />
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Tipo de vinculación <strong
+                                            class="text-danger">*</strong></label>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" id="radFuncionario"
+                                                name="tipoVinculacion" value="1"> Funcionario</label>
+                                        <label class="radio-inline"><input type="radio" id="radContratista"
+                                                name="tipoVinculacion" value="0"> Contratista</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Cargo <strong
+                                                class="text-danger">*</strong></label>
+                                        <select class="form-control" id="lstCargos" name="lstCargos">
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="divOtroCargo" style="display: none;">
+                                        <input type="text" class="form-control" id="txtCargo" name="txtCargo"
+                                            maxlength="120" placeholder="Ingrese el Cargo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row divContratista" style="display:none">
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Fuente del contrato <strong
+                                            class="text-danger">*</strong></label>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" id="radFngrd"
+                                                name="fuenteContrato" value="0"> FNGRD</label>
+                                        <label class="radio-inline"><input type="radio" id="radUngrd"
+                                                name="fuenteContrato" value="1"> UNGRD</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Número de contrato <strong
+                                            class="text-danger">*</strong></label>
+                                    <input type="text" class="form-control" id="txtNumeroContrato"
+                                        name="txtNumeroContrato" maxlength="30" />
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Fecha terminación del contrato <strong
+                                            class="text-danger">*</strong></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" id="txtFechaFinContrato"
+                                            name="txtFechaFinContrato" maxlength="10" placeholder="Año-Mes-Día">
+                                        <label class="input-group-addon btn" for="txtFechaFinContrato">
+                                            <span class="fa fa-calendar"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row divFuncionario" style="display:none">
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Código <strong class="text-danger">*</strong></label>
+                                    <!--<input type="text" class="form-control" id="txtCodigo" name="txtCodigo" />-->
+                                    <select class="form-control" id="lstCodigos" name="lstCodigos">
+                                        <option value="">--Seleccione--</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Grado <strong class="text-danger">*</strong></label>
+                                    <!--<input type="text" class="form-control" id="txtGrado" name="txtGrado" />-->
+                                    <select class="form-control" id="lstGrados" name="lstGrados">
+                                        <option value="">--Seleccione--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Dependencia <strong
+                                            class="text-danger">*</strong></label>
+                                    <select class="form-control" id="lstDependencias" name="lstDependencias">
+                                        <option value="">--Seleccione--</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Ingreso mensual <strong
+                                            class="text-danger">*</strong></label>
+                                    <input type="text" class="form-control currency" id="txtIngresoMensual"
+                                        name="txtIngresoMensual" maxlength="12" placeholder="Valor neto sin IVA" />
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Tipo de cuenta bancaria <strong
+                                            class="text-danger">*</strong></label>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" id="radAhorros"
+                                                name="tipoCuentaBancaria" value="1"> Ahorros</label>
+                                        <label class="radio-inline"><input type="radio" id="radCorriente"
+                                                name="tipoCuentaBancaria" value="0"> Corriente</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Número cuenta bancaria <strong
+                                            class="text-danger">*</strong></label>
+                                    <input type="text" class="form-control" id="txtNumeroCuenta" name="txtNumeroCuenta"
+                                        maxlength="20" />
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="control-label">Banco <strong class="text-danger">*</strong></label>
+                                    <select class="form-control" id="lstBancos" name="lstBancos">
+                                        <option value="">--Seleccione--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4>Soportes</h4>
+                                </div>
+                                <div class="col-sm-12">
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div class="form-group">
+                                                <label class="control-label">Soporte de RUT. (Fecha Vigente) <strong
+                                                        class="text-danger">*</strong></label>
+                                                <div class="input-group">
+                                                    <input type="file" class="form-control SoportesUsuario"
+                                                        id="flSoporteRut" name="flSoporteRut" data-tipoSoporte="65"
+                                                        accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                                    <a class="descargarSoporte" style="display:none;" href=""
+                                                        target="_blank"></a>&nbsp;
+                                                    <button type="button" class="btn btn-sm btn-danger eliminarSoporte"
+                                                        style="display:none;"><i class="fa fa-trash"></i></button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <label class="control-label">Soporte Pasaporte</label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control SoportesUsuario" id="flPasaporte"
+                                                    name="flPasaporte" data-tipoSoporte="66"
+                                                    accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                                <a class="descargarSoporte" style="display:none;" href=""
+                                                    target="_blank"></a>&nbsp;
+                                                <button type="button" class="btn btn-sm btn-danger eliminarSoporte"
+                                                    style="display:none;"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                            id="juramentada" style="display: none;">
+                                            <label class="control-label">Declaración juramentada.</label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control SoportesUsuario"
+                                                    id="flDeclaracionJuramentada" name="flDeclaracionJuramentada"
+                                                    data-tipoSoporte="67"
+                                                    accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                                <a class="descargarSoporte" style="display:none;" href=""
+                                                    target="_blank"></a>&nbsp;
+                                                <button type="button" class="btn btn-sm btn-danger eliminarSoporte"
+                                                    style="display:none;"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                            id="contrato" style="display: none;">
+                                            <label class="control-label">Soporte del contrato. <strong
+                                                    class="text-danger">*</strong></label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control SoportesUsuario" id="flContrato"
+                                                    name="flContrato" data-tipoSoporte="68"
+                                                    accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                                <a class="descargarSoporte" style="display:none;" href=""
+                                                    target="_blank"></a>&nbsp;
+                                                <button type="button" class="btn btn-sm btn-danger eliminarSoporte"
+                                                    style="display:none;"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <label class="control-label">Certificación bancaria.</label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control SoportesUsuario"
+                                                    id="flCertificacionBancaria" name="flCertificacionBancaria"
+                                                    data-tipoSoporte="69"
+                                                    accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                                <a class="descargarSoporte" style="display:none;" href=""
+                                                    target="_blank"></a>&nbsp;
+                                                <button type="button" class="btn btn-sm btn-danger eliminarSoporte"
+                                                    style="display:none;"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary" id="btnGuardarUsuario">Guardar
+                                            <span class="glyphicon glyphicon-floppy-disk"></span></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Comisionado">
+
+    </div>
+
+    <script src="/Comisiones/Recursos/Components/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap.min.js"></script>
+    <!--<script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrapValidator.min.js"></script>-->
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/moment.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/es.js"></script>
+
+    <script src="/Comisiones/Recursos/Components/currency/jquery.formatCurrency-1.4.0.min.js"></script>
+
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-dialog.min.js"></script>
+
+    <script src="/Comisiones/Recursos/App/js/ModalMessage.js"></script>
+    <script src="/Comisiones/Recursos/App/js/ServiceBase.js"></script>
+    <script src="/Comisiones/Recursos/App/js/Utils.js"></script>
+    <script src="/Comisiones/Recursos/App/js/Enumeraciones.js"></script>
+    <script src="/Comisiones/Recursos/App/js/UsuarioController.js"></script>
+</body>
+
+</html>

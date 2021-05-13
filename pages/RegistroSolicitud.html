@@ -1,0 +1,674 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h2>Comisiones, desplazamientos y tiquetes</h2>
+    <h3>Gestion de Solicitudes</h3>
+    <hr>
+    <div class="container">
+        <div class="form-group">
+            <a href="default.aspx" class="btn btn-warning">
+                <span class="glyphicon glyphicon-home"></span> Menú Principal
+            </a>
+        </div>
+        <div>&nbsp;</div>
+        <!--<div class="row">
+            <div class="col-sm-4">
+                <div>
+                    <label class="radio-inline">
+                        <input type="radio" name="tipoVinculacion" value="1"> Funcionario
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="tipoVinculacion" value="2"> Contratista
+                    </label>
+                </div>
+            </div>
+        </div>-->
+        <!--<div class="row">&nbsp;</div>-->
+        <input type="hidden" id="UsuarioId" value="" />
+        <input type="hidden" id="SolicitudId" value="" />
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Datos del solicitante</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group" id="divConsecutivo" style="display: none;">
+                <label class="control-label">Consecutivo Solicitud</label>
+                <input type="text" class="form-control" id="txtConsecutivo" name="txtConsecutivo" readonly />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8 form-group">
+                <label class="control-label">Nombre completo</label>
+                <input type="text" class="form-control" id="txtNombreCompleto" name="txtNombreCompleto" readonly />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Número de documento</label>
+                <input type="text" class="form-control" id="txtNumeroDocumento" name="txtNumeroDocumento" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Correo electrónico</label>
+                <input type="text" class="form-control" id="txtCorreo" name="txtCorreo" readonly />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Tipo de vinculación</label>
+                <input type="text" class="form-control" id="txtTipoVinculacion" name="txtTipoVinculacion" readonly />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Dependencia</label>
+                <input type="text" class="form-control" id="txtDependencia" name="txtDependencia" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Cargo</label>
+                <input type="text" class="form-control" id="txtCargo" name="txtCargo" readonly />
+            </div>
+            <div class="col-sm-4 form-group" style="display:none" id="divTipoCta">
+                <label class="control-label">Tipo Cuenta</label>
+                <input type="text" class="form-control" id="txtTipoCta" name="txtTipoCta" readonly />
+            </div>
+            <div class="col-sm-4 form-group" style="display:none" id="divBanco">
+                <label class="control-label">Banco</label>
+                <input type="text" class="form-control" id="txtBanco" name="txtBanco" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group" style="display:none" id="divNoCta">
+                <label class="control-label">Número de Cuenta</label>
+                <input type="text" class="form-control" id="txtNoCta" name="txtNoCta" readonly />
+            </div>
+            <div class="col-sm-4 form-group" style="display:none" id="divIngreso">
+                <label class="control-label">Ingreso Mensual</label>
+                <input type="text" class="form-control" id="txtIngreso" name="txtIngreso" readonly />
+            </div>
+        </div>
+        <div class="row" id="divContrato" style="display:none">
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Fuente Contrato</label>
+                <input type="text" class="form-control" id="txtFuente" name="txtFuente" readonly />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label">Número Contrato</label>
+                <input type="text" class="form-control" id="txtNumContrato" name="txtNumContrato" readonly />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label class="control-label"> Soporte Contrato</label>
+                <div class="input-group">
+                    <input type="file" class="form-control SoportesUsuario" id="flContrato" name="flContrato"
+                        data-tipoSoporte="68"
+                        accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                    <a class="descargarSoporte" style="display:none;" href="" target="_blank"></a>&nbsp;
+                    <button type="button" class="btn btn-sm btn-danger eliminarSoporte" style="display:none;"><i
+                            class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="panel-group" id="divComision">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">INFORMACIÓN DE LA COMISIÓN</h3>
+                </div>
+                <div class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label class="control-label">Objeto de la comisión o desplazamiento <strong
+                                        class="text-danger">*</strong></label>
+                                <textarea class="form-control" id="txtObjetoComision" name="txtObjetoComision"
+                                    rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">Pais <strong class="text-danger">*</strong></label>
+                                <select class="form-control" id="lstOrigenPaisComision" name="lstOrigenPaisComision">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">Orígen <strong class="text-danger">*</strong></label>
+                                </br>
+
+                                <label class="control-label otrolstOrigenPaisComision"
+                                    style="display:none;">Departamento<strong class="text-danger">*</strong></label>
+                                <select class="form-control otrolstOrigenPaisComision" style="display:none;"
+                                    id="lstOrigenDepartamentoComision" name="lstOrigenDepartamentoComision">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                                <label class="control-label otrolstOrigenPaisComision"
+                                    style="display:none;">Ciudad<strong class="text-danger">*</strong></label>
+                                <select class="form-control otrolstOrigenPaisComision" style="display:none;"
+                                    id="lstOrigenCiudadComision" name="lstOrigenCiudadComision">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+
+                                <input type="text" class="form-control txtlstOrigenPaisComision" id="txtOrigenComision"
+                                    name="txtOrigenComision" maxlength="150" placeholder="Lugar Orígen">
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">Fecha inicio <strong class="text-danger">*</strong></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" id="txtFechaInicioComision"
+                                        name="txtFechaInicioComision" maxlength="10" placeholder="Año-Mes-Día">
+                                    <label class="input-group-addon btn" for="txtFechaInicioComision">
+                                        <span class="fa fa-calendar"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">Pais <strong class="text-danger">*</strong></label>
+                                <select class="form-control" id="lstDestinoPaisComision" name="lstDestinoPaisComision">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">Destino <strong class="text-danger">*</strong></label>
+                                </br>
+
+                                <label class="control-label otrolstDestinoPaisComision"
+                                    style="display:none;">Departamento<strong class="text-danger">*</strong></label>
+                                <select class="form-control otrolstDestinoPaisComision" style="display:none;"
+                                    id="lstDestinoDepartamentoComision" name="lstDestinoDepartamentoComision">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                                <label class="control-label otrolstDestinoPaisComision"
+                                    style="display:none;">Ciudad<strong class="text-danger">*</strong></label>
+                                <select class="form-control otrolstDestinoPaisComision" style="display:none;"
+                                    id="lstDestinoCiudadComision" name="lstDestinoCiudadComision">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                                <input type="text" class="form-control txtlstDestinoPaisComision"
+                                    id="txtDestinoComision" name="txtDestinoComision" maxlength="150"
+                                    placeholder="Lugar Destino">
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">Fecha finalización <strong
+                                        class="text-danger">*</strong></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" id="txtFechaFinComision"
+                                        name="txtFechaFinComision" maxlength="10" placeholder="Año-Mes-Día">
+                                    <label class="input-group-addon btn" for="txtFechaFinComision">
+                                        <span class="fa fa-calendar"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">El evento incluye</label>
+                                <div>
+                                    <label class="checkbox-inline"><input type="checkbox" name="gastosAdicionales"
+                                            id="gastoTransporte" value="83">Transporte</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="gastosAdicionales"
+                                            id="gastoAlojamiento" value="84">Alojamiento</label>
+                                    <label class="checkbox-inline"><input type="checkbox" name="gastosAdicionales"
+                                            id="gastoAlimentacion" value="85">Alimentación</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">Tipo de viaje <strong
+                                        class="text-danger">*</strong></label>
+                                <div>
+                                    <label class="radio-inline"><input type="radio" name="tipoViaje" id="viajeNacional"
+                                            value="1">Nacional</label>
+                                    <label class="radio-inline"><input type="radio" name="tipoViaje"
+                                            id="viajeInternacional" value="0">Internacional</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label class="control-label">¿Requiere tiquetes aéreos? <strong
+                                        class="text-danger">*</strong></label>
+                                <div>
+                                    <label class="radio-inline"><input type="radio" name="requiereTiquetesAereos"
+                                            id="requiereTiquete" value="1">Sí</label>
+                                    <label class="radio-inline"><input type="radio" name="requiereTiquetesAereos"
+                                            id="noRequiereTiquete" value="0">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="divPasaporte" style="display:none;">
+                            <div class="col-sm-4 form-group">
+                                <label>Pasaporte</label>
+                                <input type="text" class="form-control" id="txtPasaporte" name="txtPasaporte"
+                                    maxlength="20" placeholder="No de Pasaporte" />
+                            </div>
+                            <div class="col-sm-8 form-group">
+                                <label>Cargar Copia Pasaporte</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" name="" data-tipoSoporte=""
+                                        accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                    <label class="input-group-addon btn">Descargar<i
+                                            class="fa fa-cloud-download"></i></label>
+                                    <label class="input-group-addon btn btn-danger">Eliminar<i
+                                            class="fa fa-remove"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group" style="display:none;" id="divAudiencia">
+                            <label class="control-label">¿Es una Audiencia? <strong
+                                    class="text-danger">*</strong></label>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="EsAudiencia" id="EsAudiencia"
+                                        value="1">Sí</label>
+                                <label class="radio-inline"><input type="radio" name="EsAudiencia" id="noEsAudiencia"
+                                        value="0">No</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4>Soportes</h4>
+                            </div>
+                            <div class="col-sm-12">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div class="form-group">
+                                            <label class="control-label">Soporte de agenda. <strong
+                                                    class="text-danger">*</strong></label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control SoportesSolicitud"
+                                                    id="flSoporteAgenda" name="flSoporteAgenda" data-tipoSoporte="70"
+                                                    accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                                <a class="descargarSoporte" style="display:none;" href=""
+                                                    target="_blank"></a>&nbsp;
+                                                <button type="button" class="btn btn-sm btn-danger eliminarSoporte"
+                                                    style="display:none;"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                                        id="soporteCitacion" style="display: none">
+                                        <label class="control-label">Soporte de citación.</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control SoportesSolicitud"
+                                                id="flSoporteCitacion" name="flSoporteCitacion" data-tipoSoporte="71"
+                                                accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                            <a class="descargarSoporte" style="display:none;" href=""
+                                                target="_blank"></a>&nbsp;
+                                            <button type="button" class="btn btn-sm btn-danger eliminarSoporte"
+                                                style="display:none;" id=""><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                                        id="soportePoder" style="display: none;">
+                                        <label class="control-label">Soporte del poder.</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control SoportesSolicitud"
+                                                id="flSoportePoder" name="flSoportePoder" data-tipoSoporte="72"
+                                                accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                                            <a class="descargarSoporte" style="display:none;" href=""
+                                                target="_blank"></a>&nbsp;
+                                            <button type="button" class="btn btn-sm btn-danger eliminarSoporte"
+                                                style="display:none;"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary" style="display: none;" id="tabs">
+                <ul class="nav nav-tabs">
+                    <li class="" id="tabViaticosDesplazamientoFuncionario" style="display: none;">
+                        <a class="openTab" data-tabId="86" role="button">VIÁTICOS Y/O GASTOS DE DESPLAZAMIENTO</a>
+                    </li>
+                    <li class="" id="tabGastosTerrestresFuncionario" style="display: none;">
+                        <a class="openTab" data-tabId="87" role="button">GASTOS DE TRANSPORTE TERRESTRE Y/O FLUVIAL</a>
+                    </li>
+                    <li class="" id="tabDesplazamientoContratista" style="display: none;">
+                        <a class="openTab" data-tabId="88" role="button">TABLA DE DESPLAZAMIENTOS</a>
+                    </li>
+                    <li class="" id="tabRutaAerea" style="display: none;">
+                        <a class="openTab" data-tabId="89" role="button">RUTA AEREA</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active">
+                        <div class="panel-body" id="frmDesplazamiento">
+                            <input type="hidden" id="HIdDesplazamiento" value="" />
+                            <div class="row" id="divTipoVuelo" style="display:none;">
+                                <div class="col-sm-12 form-group">
+                                    <label>Tipo de desplazamiento de vuelo</label>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" name="tipoVuelo"
+                                                value="1">Ida</label>
+                                        <label class="radio-inline"><input type="radio" name="tipoVuelo" value="2">Ida y
+                                            regreso</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="FrmInput">
+                                <div class="row">
+                                    <div class="col-sm-4 form-group">
+                                        <label class="control-label">Pais <strong class="text-danger">*</strong></label>
+                                        <select class="form-control" id="lstOrigenPais" name="lstOrigenPais">
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group">
+                                        <label class="control-label">Lugar orígen <strong
+                                                class="text-danger">*</strong></label>
+
+                                        </br>
+
+                                        <label class="control-label otrolstOrigenPais"
+                                            style="display:none;">Departamento<strong
+                                                class="text-danger">*</strong></label>
+                                        <select class="form-control otrolstOrigenPais" style="display:none;"
+                                            id="lstOrigenDepartamento" name="lstOrigenDepartamento">
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                        <label class="control-label otrolstOrigenPais"
+                                            style="display:none;">Ciudad<strong class="text-danger">*</strong></label>
+                                        <select class="form-control otrolstOrigenPais" style="display:none;"
+                                            id="lstOrigenCiudad" name="lstOrigenCiudad">
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+
+                                        <input type="text" class="form-control txtlstOrigenPais" name="txtOrigen"
+                                            id="txtOrigen" maxlength="150" />
+                                    </div>
+                                    <div class="col-sm-4 form-group">
+                                        <label class="control-label">Fecha inicio <strong
+                                                class="text-danger">*</strong></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control datepicker"
+                                                id="txtFechaInicioDesplazamiento" name="txtFechaInicioDesplazamiento"
+                                                maxlength="10" placeholder="Año-Mes-Día">
+                                            <label class="input-group-addon btn" for="txtFechaInicioDesplazamiento">
+                                                <span class="fa fa-calendar"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 form-group">
+                                        <label class="control-label">Pais <strong class="text-danger">*</strong></label>
+                                        <select class="form-control" id="lstDestinoPais" name="lstDestinoPais">
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 form-group">
+                                        <label class="control-label">Lugar destino <strong
+                                                class="text-danger">*</strong></label>
+                                        </br>
+
+                                        <label class="control-label otrolstDestinoPais"
+                                            style="display:none;">Departamento<strong
+                                                class="text-danger">*</strong></label>
+                                        <select class="form-control otrolstDestinoPais" style="display:none;"
+                                            id="lstDestinoDepartamento" name="lstDestinoDepartamento">
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                        <label class="control-label otrolstDestinoPais"
+                                            style="display:none;">Ciudad<strong class="text-danger">*</strong></label>
+                                        <select class="form-control otrolstDestinoPais" style="display:none;"
+                                            id="lstDestinoCiudad" name="lstDestinoCiudad">
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+
+                                        <input type="text" class="form-control txtlstDestinoPais" name="txtDestino"
+                                            id="txtDestino" maxlength="150" />
+                                    </div>
+                                    <div class="col-sm-4 form-group" id="divFechaTerminacionDesplazamiento"
+                                        style="display:none;">
+                                        <label class="control-label">Fecha finalización <strong
+                                                class="text-danger">*</strong></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control datepicker"
+                                                id="txtFechaFinDesplazamiento" name="txtFechaFinDesplazamiento"
+                                                maxlength="10" placeholder="Año-Mes-Día">
+                                            <label class="input-group-addon btn" for="txtFechaFinDesplazamiento">
+                                                <span class="fa fa-calendar"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-6 form-group" id="divHoraTrayecto">
+                                        <label class="control-label">Hora de Trayecto<strong
+                                                class="text-danger">*</strong></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="txtHoraTrayecto"
+                                                name="txtHoraTrayecto" maxlength="10">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 form-group" id="divNumeroDiasDesplazamiento"
+                                        style="display:none;">
+                                        <label class="control-label">Número de días <strong
+                                                class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control" id="txtNumeroDias" name="txtNumeroDias"
+                                            min="0" max="500" />
+                                    </div>
+                                    <div class="col-sm-4 form-group" id="divTipoRutaDesplazamiento"
+                                        style="display:none;">
+                                        <label class="control-label">Tipo de ruta <strong
+                                                class="text-danger">*</strong></label>
+                                        <div>
+                                            <label class="radio-inline"><input type="radio" name="tipoRuta"
+                                                    id="rutaAerea" value="90">Aérea</label>
+                                            <label class="radio-inline"><input type="radio" name="tipoRuta"
+                                                    id="rutaFluvial" value="91">Fluvial</label>
+                                            <label class="radio-inline"><input type="radio" name="tipoRuta"
+                                                    id="rutaTerrestre" value="92">Terrestre</label>
+                                            <label class="radio-inline"><input type="radio" name="tipoRuta"
+                                                    id="otraRuta" value="Otro">Otro</label>
+                                        </div>
+                                        <div class="otro" style="display:none;">
+                                            <br />
+                                            <input type="text" class="form-control" id="txtOtraRuta" name="txtOtraRuta"
+                                                maxlength="50" placeholder="Indique el tipo de ruta" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 form-group" id="divBaseDiariaDesplazamiento"
+                                        style="display:none;">
+                                        <label class="control-label">Base diaria <strong
+                                                class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control currency" id="txtBaseDiaria"
+                                            name="txtBaseDiaria" maxlength="12" />
+                                    </div>
+                                    <div class="col-sm-4 form-group" id="divValorPagarDesplazamiento"
+                                        style="display:none;">
+                                        <label class="control-label">Valor a pagar <strong
+                                                class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control currency" id="txtValorPagar"
+                                            name="txtValorPagar" maxlength="12" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 form-group">
+                                        <div class="pull-right">
+                                            <br />
+                                            <button type="button" class="btn btn-primary"
+                                                id="btnAgregarDesplazamiento">Agregar desplazamiento <span
+                                                    class="glyphicon glyphicon-floppy-disk"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Tabla viáticos funcionario-->
+                            <div class="row" id="divTblViaticosDesplazamiento" style="display:none;">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-sm" id="tblViaticosDesplazamiento">
+                                            <thead>
+                                                <tr class="bg-primary">
+                                                    <th scope="col">ORÍGEN</th>
+                                                    <th scope="col">DESTINO</th>
+                                                    <th scope="col">FECHA INICIO</th>
+                                                    <th scope="col">FECHA FIN</th>
+                                                    <th scope="col">NO. DÍAS</th>
+                                                    <th scope="col">BASE DIARIA</th>
+                                                    <th scope="col">VALOR A PAGAR</th>
+                                                    <th scope="col" style="width:8%;">EDITAR</th>
+                                                    <th scope="col" style="width:8%;">QUITAR</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Tabla Gastos Transportes funcionario-->
+                            <div class="row" id="divTblGastosTransportesFuncionario" style="display:none;">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-sm"
+                                            id="tblGastosTransportesFuncionario">
+                                            <thead>
+                                                <tr class="bg-primary">
+                                                    <th scope="col">ORÍGEN</th>
+                                                    <th scope="col">DESTINO</th>
+                                                    <th scope="col">FECHA INICIO</th>
+                                                    <th scope="col">FECHA FIN</th>
+                                                    <th scope="col">NO. DÍAS</th>
+                                                    <th scope="col">VALOR A PAGAR</th>
+                                                    <th scope="col">EDITAR</th>
+                                                    <th scope="col">QUITAR</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Tabla Desplazamiento Contratista-->
+                            <div class="row" id="divTblDesplazamientoContratista" style="display:none;">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-sm" id="tblDesplazamientoContratista">
+                                            <thead>
+                                                <tr class="bg-primary">
+                                                    <th scope="col">ORÍGEN</th>
+                                                    <th scope="col">DESTINO</th>
+                                                    <th scope="col">FECHA INICIO</th>
+                                                    <th scope="col">FECHA FIN</th>
+                                                    <th scope="col">No. DÍAS</th>
+                                                    <th scope="col">TIPO DE RUTA</th>
+                                                    <th scope="col">EDITAR</th>
+                                                    <th scope="col">QUITAR</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Tabla de Ruta Aérea-->
+                            <div class="row" id="divTblRutaAerea" style="display:none;">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-sm" id="tblRutaAerea">
+                                            <thead>
+                                                <tr class="bg-primary">
+                                                    <th scope="col">ORÍGEN</th>
+                                                    <th scope="col">DESTINO</th>
+                                                    <th scope="col">FECHA VIAJE</th>
+                                                    <th scope="col">EDITAR</th>
+                                                    <th scope="col">QUITAR</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="divResolucion" style="display:none">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="form-group">
+                        <label class="control-label">Soporte Resolución. <strong class="text-danger"></strong></label>
+                        <div class="input-group">
+                            <input type="file" class="form-control SoportesSolicitud" id="flSoporteResolucion"
+                                name="flSoporteResolucion" data-tipoSoporte="80"
+                                accept="application/pdf,image/jpeg,image/png,application/x-compressed,application/zip,application/x-rar-compressed,application/rar">
+                            <a class="descargarSoporte" style="display:none;" href="" target="_blank"></a>&nbsp;
+                            <button type="button" id="btnEliminar" class="btn btn-sm btn-danger eliminarSoporte"><i
+                                    class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <br />
+                    <button type="button" class="btn btn-primary btnFlujoSolicitud" id="btnRechazarSolicitud"
+                        style="display:none;"
+                        onclick="SolicitudController.ConfirmarActualizacionSolicitud(this)">Rechazar Solicitud <i
+                            class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-primary btnFlujoSolicitud" id="btnSolicitarModificacion"
+                        style="display:none;"
+                        onclick="SolicitudController.ConfirmarActualizacionSolicitud(this)">Solicitar modificaciones <i
+                            class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-primary btnFlujoSolicitud" id="btnAprobarSolicitud"
+                        onclick="SolicitudController.ConfirmarActualizacionSolicitud(this)"
+                        style="display:none;">Aprobar solicitud <i class="fa fa-check-square-o"></i></button>
+                    <button type="button" class="btn btn-primary btnSolicitud" id="btnEnviarSolicitud">Enviar solicitud
+                        <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    <button type="button" class="btn btn-primary" id="btnCargarResolucion" style="display:none;">Cargar
+                        Resolución <span class="glyphicon-glyphicon-open"></span></button>
+                </div>
+            </div>
+        </div>
+        <script src="/Comisiones/Recursos/Components/jquery/jquery-3.3.1.min.js"></script>
+        <script src="/Comisiones/Recursos/Components/bootstrap/js/moment.min.js"></script>
+        <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap.min.js"></script>
+
+        <script src="/Comisiones/Recursos/Components/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="/Comisiones/Recursos/Components/datatables/js/dataTables.bootstrap.min.js"></script>
+
+        <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/Comisiones/Recursos/Components/bootstrap/js/es.js"></script>
+
+        <script src="/Comisiones/Recursos/Components/currency/jquery.formatCurrency-1.4.0.min.js"></script>
+        <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-dialog.min.js"></script>
+
+        <script src="/Comisiones/Recursos/App/js/ModalMessage.js"></script>
+        <script src="/Comisiones/Recursos/App/js/Enumeraciones.js"></script>
+        <script src="/Comisiones/Recursos/App/js/ServiceBase.js"></script>
+        <script src="/Comisiones/Recursos/App/js/Utils.js"></script>
+        <script src="/Comisiones/Recursos/App/js/SolicitudController.js"></script>
+        <script type="text/javascript" src="../_layouts/15/sp.runtime.js"></script>
+        <script type="text/javascript" src="../_layouts/15/sp.js"></script>
+        <script type="text/javascript" src="../_layouts/15/sp.core.js"></script>
+</body>
+
+</html>

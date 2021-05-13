@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="/Comisiones/Recursos/Components/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h2>Comisiones, desplazamientos y tiquetes</h2>
+    <h3>Expedicion de Tiquetes</h3>
+    <hr>
+    <div class="container">
+        <div class="form-group">
+            <a href="default.aspx" class="btn btn-warning">
+                <span class="glyphicon glyphicon-home"></span> Menú Principal
+            </a>
+        </div>
+        <div>&nbsp;</div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label>Número de documento</label>
+                <input type="text" class="form-control" name="txtDocumento" id="txtDocumento" />
+            </div>
+            <div class="col-sm-4 form-group">
+                <label>Tipo de vinculación</label>
+                <div>
+                    <label class="radio-inline"><input type="radio" name="tipoVinculacion" value="1">
+                        Funcionario</label>
+                    <label class="radio-inline"><input type="radio" name="tipoVinculacion" value="2">
+                        Contratista</label>
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label>Dependencia</label>
+                <select class="form-control" name="lstDependencias" id="lstDependencias">
+                    <option value="">--Seleccione--</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label>Fecha inicio</label>
+                <div class="input-group">
+                    <input type="text" class="form-control datepicker" id="txtSolicitudFechaInicio"
+                        placeholder="Año-Mes-Día">
+                    <label class="input-group-addon btn" for="txtSolicitudFechaInicio">
+                        <span class="fa fa-calendar"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label>Fecha finalización</label>
+                <div class="input-group">
+                    <input type="text" class="form-control datepicker" id="txtSolicitudFechaFin"
+                        placeholder="Año-Mes-Día">
+                    <label class="input-group-addon btn" for="txtSolicitudFechaFin">
+                        <span class="fa fa-calendar"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4 form-group">
+                <div class="pull-right">
+                    <br>
+                    <button type="button" class="btn btn-default" id="btnBorrarFiltros">Borrar filtros </button>
+                    <button type="button" class="btn btn-primary" id="btnBuscarSolicitudes">Buscar solicitudes <i
+                            class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" id="tblGastosTerrestres">
+                        <thead>
+                            <tr class="bg-primary">
+                                <th scope="col">NOMBRE_COMPLETO</th>
+                                <th scope="col">FECHA_INICIO</th>
+                                <th scope="col">FECHA_FINALIZACIÓN</th>
+                                <th scope="col">OBJETO DE COMISIÓN O DESPLAZAMIENTO</th>
+                                <th scope="col">CARGAR_VUELOS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+    <!--
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Opciones de vuelo</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Aerolínea. </label>
+                                <select class="form-control">
+                                    <option selected="">--Seleccione--</option>
+                                    <option>American Airlines</option>
+                                    <option>Avianca</option>
+                                    <option>Latam</option>
+                                    <option>Luthansa</option>
+                                    <option>Viva</option>
+                                    <option>Wingo</option>
+                                    <option>Avianca</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Orígen. </label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Destino. </label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Fecha y hora de salida. </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" id="txtFechaInicial" placeholder="Año-Mes-Día">
+                                    <label class="input-group-addon btn" for="txtFechaInicial">
+                                        <span class="fa fa-calendar"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Valor. </label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="pull-right">
+                                    <br>
+                                    <button type="button" class="btn btn-primary">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm">
+                                        <thead>
+                                            <tr class="bg-primary">
+                                                <th scope="col">AEROLÍNEA</th>
+                                                <th scope="col">ORÍGEN</th>
+                                                <th scope="col">DESTINO</th>
+                                                <th scope="col">FECHA Y HORA DE SALIDA</th>
+                                                <th scope="col">QUITAR</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <script src="/Comisiones/Recursos/Components/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/moment.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-dialog.min.js"></script>
+
+    <script src="/Comisiones/Recursos/Components/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/datatables/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/Comisiones/Recursos/Components/bootstrap/js/es.js"></script>
+
+    <script src="/Comisiones/Recursos/App/js/ModalMessage.js"></script>
+    <script src="/Comisiones/Recursos/App/js/ServiceBase.js"></script>
+    <script src="/Comisiones/Recursos/App/js/Utils.js"></script>
+    <script src="/Comisiones/Recursos/App/js/Enumeraciones.js"></script>
+    <script src="/Comisiones/Recursos/App/js/ExpedicionController.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+﻿.modal-backdrop {
+    z-index: 995;
+}
+
+.datepicker-days > table > tbody > tr td:nth-child(7):not(.new):not(.old):not(.disabled) {
+    color: red;
+}
